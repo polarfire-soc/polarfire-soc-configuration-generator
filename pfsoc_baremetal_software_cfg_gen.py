@@ -13,6 +13,12 @@ import xml.etree.ElementTree as ET
 import sys
 
 #------------------------------------------------------------------------------
+# xml description version
+#------------------------------------------------------------------------------
+def get_cg_ver():
+    return "0.2.5"
+
+#------------------------------------------------------------------------------
 # xml file to parse
 # Also an xml files listing tags used for reference
 #------------------------------------------------------------------------------
@@ -104,12 +110,6 @@ header_files = ('hardware,memory_map,hw_memory.h',
 
 MAX_LINE_WIDTH = 80
 debug_reg_csv = False
-
-#------------------------------------------------------------------------------
-# xml description version
-#------------------------------------------------------------------------------
-def get_cg_ver():
-    return "x.2.4"
 
 #------------------------------------------------------------------------------
 # Read the xml file into ET
@@ -514,10 +514,11 @@ def main():
     #  Create one xml file containing all xml information from .csv defines
     #  This is only used for internal testing. Not available for external use.
     #
-    if gen_xml == True:
-        import generate_xml_from_csv
-        generate_xml_from_csv.generate_full_xml_file(reference_xml_file, xml_tags , get_cg_ver())
-        print('xml file created: ' + reference_xml_file.split(',')[-1])
+    if (len(sys.argv) >= 3):
+        if gen_xml == True:
+            import generate_xml_from_csv
+            generate_xml_from_csv.generate_full_xml_file(reference_xml_file, xml_tags , get_cg_ver())
+            print('xml file created: ' + reference_xml_file.split(',')[-1])
     #
     # Create directory structure for the header files
     #
