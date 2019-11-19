@@ -4,7 +4,7 @@
 # header files in the directory hardware which are used by the embedded
 # software.
 # Currently there is an option to produce the xml file from .csv files, and
-# this option will be avialble during the development phase.
+# this option will be available during the development phase.
 #==============================================================================
 import datetime
 import os
@@ -109,7 +109,6 @@ header_files = ('hardware,memory_map,hw_memory.h',
 
 
 MAX_LINE_WIDTH = 80
-debug_reg_csv = False
 
 #------------------------------------------------------------------------------
 # Read the xml file into ET
@@ -245,19 +244,15 @@ def write_line(headerFile , reg_description):
 #------------------------------------------------------------------------------
 # Iterate through registers and produce header file output
 #------------------------------------------------------------------------------
-def generate_register(debug_reg_file, headerFile, registers, tags):
+def generate_register(headerFile, registers, tags):
     '''
     Parse registers tag for register tags and print to header file
-    :param debug_reg_file: print all registers to this file, confirm compliance
     :param headerFile: header file to print to
     :param registers: registers in a tag
     :param tags: Some tags used to determine print format
     :return:
     '''
     for register in registers:
-        # write register name to debug file if commanded
-        if debug_reg_csv == True:
-            debug_reg_file.write(register.get('name') + '\n')
         # if tag 4 is set, pre-append register name with tag[4] value
         if tags[4] != 'none':
             pre_append = tags[4]
@@ -280,8 +275,6 @@ def generate_register(debug_reg_file, headerFile, registers, tags):
         reg_value_default = 0
         for field in register:
             if field.tag == "field":
-                # write field name to debug file
-                debug_reg_file.write(',' + field.get('name') + '\n')
                 gap = 30
                 if len(field.get('name')) > gap:
                     gap = len(field.get('name')) + 4
@@ -364,7 +357,7 @@ def generate_mem_elements(headerFile, mem_elements, tags):
 #------------------------------------------------------------------------------
 # generate a header file
 #------------------------------------------------------------------------------
-def generate_header(debug_reg_file, file, real_root, root, file_name, tags):
+def generate_header( file, real_root, root, file_name, tags):
     creator = "Microchip-FPGA Embedded Systems Solutions"
     with open(file, 'w+') as headerFile:
         # write the copyright header
@@ -373,12 +366,12 @@ def generate_header(debug_reg_file, file, real_root, root, file_name, tags):
         start_cplus(headerFile, file_name)
         for child in root:
             if child.tag == "registers":
-                generate_register(debug_reg_file, headerFile, child, tags)
+                generate_register(headerFile, child, tags)
             if child.tag == "mem_elements":
                 generate_mem_elements(headerFile, child, tags)
             for child2 in child:
                 if child2.tag == "registers":
-                    generate_register(debug_reg_file, headerFile, child2, tags)
+                    generate_register(headerFile, child2, tags)
         end_cplus(headerFile, file_name)
         end_define(headerFile, file_name)
 
@@ -419,40 +412,35 @@ def generate_reference_header_file(ref_header_file, root, header_files):
 #  Generate all the header files, passed in output_header_files
 #------------------------------------------------------------------------------
 def generate_header_files(output_header_files, input_xml_file, input_xml_tags):
-    #debug file
-    file = 'debug_reg_names.csv'
-    with open(file, 'w+') as debug_reg_file:
-        debug_reg_file.write('All the register and field names used in the hardware description xml file' + '\n')
-        debug_reg_file.write('Register name,Field name' + '\n')
-        # read in an xml file
-        s = input_xml_file.split(',')
-        root = read_xml_file(s)
-        index = 0
-        while index < len(input_xml_tags):
-            ref_tags = input_xml_tags[index].split(',')
-            s = output_header_files[index].split(',')
-            file_name = s[-1]
-            dir_name = s[-2]
-            file_dir = os.path.join(*s)
-            found_match = 0
-            for child in root:
-                if child.tag == 'mss_' + dir_name:
-                    for child1 in child:
-                        if child1.tag == ref_tags[1]:
-                            found_match = 1
-                            break
-            #
-            # Next, create file based on xml content
-            #
-            if found_match == 1:
-                generate_header(debug_reg_file, file_dir, root, child1, file_name, ref_tags)
-            index += 1
+    # read in an xml file
+    s = input_xml_file.split(',')
+    root = read_xml_file(s)
+    index = 0
+    while index < len(input_xml_tags):
+        ref_tags = input_xml_tags[index].split(',')
+        s = output_header_files[index].split(',')
+        file_name = s[-1]
+        dir_name = s[-2]
+        file_dir = os.path.join(*s)
+        found_match = 0
+        for child in root:
+            if child.tag == 'mss_' + dir_name:
+                for child1 in child:
+                    if child1.tag == ref_tags[1]:
+                        found_match = 1
+                        break
+        #
+        # Next, create file based on xml content
+        #
+        if found_match == 1:
+            generate_header(file_dir, root, child1, file_name, ref_tags)
+        index += 1
 
-        '''
-        generate a header which references all the generated headers
-        '''
-        file_name = 'hardware,hw_platform.h'
-        generate_reference_header_file(file_name, root, output_header_files)
+    '''
+    generate a header which references all the generated headers
+    '''
+    file_name = 'hardware,hw_platform.h'
+    generate_reference_header_file(file_name, root, output_header_files)
 
 
 
@@ -491,6 +479,7 @@ def main():
     # - further arguments
     argumentList = fullCmdArguments[1:]
     input_xml_file = argumentList[0]
+    debug_reg_csv = False
     if (len(sys.argv) >= 4):
         if (argumentList[2] == 'debug_regs'):
             debug_reg_csv = True
