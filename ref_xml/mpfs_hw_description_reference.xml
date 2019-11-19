@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<mss xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="pf_soc_hw_description.xsd">
+<mss xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="mpfs_hw_description.xsd">
    <!--xml file which describes PolarFire SoC hardware setting for Embedded Software -->
    <!--Please see readme.md for details -->
    <!--Note: All hex values preceded with 0x -->
