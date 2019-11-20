@@ -16,7 +16,7 @@ PolarFire SoC Bare Metal Software Configuration Generator content
 | File                                          | Description       |       
 | :-------------------------------------------- |:------------------| 
 | readme.md                                     | This file.        |
-| pfsoc_baremetal_software_cfg_gen.py           | Python script. Takes .xml as arument, produces output for embedded software.|   
+| mpfs_configuration_generator.py           | Python script. Takes .xml as arument, produces output for embedded software.|   
 | gen_hw_headers.bat                            | Batch script for use on windows command line. Edit with the xml file you wish to use.|    
 | gen_hw_headers_lin.sh                         | Bash script for use in Linux terminal. Edit with the xml file you wish to use.|    
 | ref_xml/pf_soc_hw_description_reference.xml   | Example Libero .xml file. |    
@@ -32,7 +32,7 @@ PolarFire SoC Bare Metal Software Configuration Generator content
                 | +-----------------------------------------------+
                 |
            readme.md
-           pfsoc_baremetal_software_cfg_gen.py
+           mpfs_configuration_generator.py
            gen_hw_headers_lin.sh
            gen_hw_headers.bat
 ~~~
@@ -47,12 +47,12 @@ please make sure it is given permission to execute by running the following comm
 Please follow the recommended steps
 1. Copy the Libero generated or hand crafted xml file
 2. Delete or rename the subdirectory <hardware> as it will be overwritten
-3. Run the command <python pfsoc_baremetal_software_cfg_gen.py nameofxml.xml>
+3. Run the command <python mpfs_configuration_generator.py nameofxml.xml>
 4. The subdirectory <hardware> will be created. 
 
 #### Example generating from a command line in windows
 ~~~~
-C:\mpfs-bare-metal-sw-config-generator\lib>py -3 pfsoc_baremetal_software_cfg_gen.py ref_xml/pf_soc_hw_description_reference.xml
+C:\mpfs-bare-metal-sw-config-generator\lib>py -3 mpfs_configuration_generator.py ref_xml/pf_soc_hw_description_reference.xml
 generate header files for Embedded software project
 pfsoc-baremetal-software-cfg-gen.py
 python interpreter details: sys.version_info(major=3, minor=7, micro=4, releaselevel='final', serial=0)
@@ -63,9 +63,9 @@ C:\mpfs-bare-metal-sw-config-generator\lib>
 
 #### Example generating from a command line in Linux
 ~~~~
-vagrant@ubuntu-xenial:/home/mpfs-bare-metal-sw-config-generator/lib$ python3 pfsoc_baremetal_software_cfg_gen.py ref_xml/pf_soc_hw_description_reference.xml
+vagrant@ubuntu-xenial:/home/mpfs-bare-metal-sw-config-generator/lib$ python3 mpfs_configuration_generator.py ref_xml/pf_soc_hw_description_reference.xml
 generate header files for Embedded software project
-pfsoc_baremetal_software_cfg_gen.py
+mpfs_configuration_generator.py
 python interpreter details: sys.version_info(major=3, minor=5, micro=2, releaselevel='final', serial=0)
 python interpreter running is version 3
 output header files created in hardware/ directory

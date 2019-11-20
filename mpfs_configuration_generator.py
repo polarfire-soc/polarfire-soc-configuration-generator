@@ -13,11 +13,11 @@ import xml.etree.ElementTree as ET
 import sys
 
 #------------------------------------------------------------------------------
-# mpfs_baremetal_software_cfg_gen.py version
+# mpfs_configuration_generator.py version
 #------------------------------------------------------------------------------
 def get_script_ver():
     '''
-    This changes anytime anytime the mpfs_baremetal_software_cfg_gen.py script
+    This changes anytime anytime the mpfs_configuration_generator.py script
     changes. This does not nessesary mean the xml format has been updated in
     get_xml_ver()
     :return: script version
