@@ -7,9 +7,9 @@
       <libero_version>10.0.0</libero_version>
       <design_name>test design</design_name>
       <mpfs_part_no>M2PFS250T_ES</mpfs_part_no>
-      <creation_date_time>2019-11-18 14:37:17</creation_date_time>
+      <creation_date_time>2019-11-20 18:45:30</creation_date_time>
       <!-- === Version info relating to Libero and xml version === -->
-      <xml_format_version>0.2.3</xml_format_version>
+      <xml_format_version>0.2.6</xml_format_version>
    </design_information>
    <mss_memory_map>
       <map>
@@ -158,7 +158,7 @@ When the register bit is '0' the peripheral is mapped into the 0x2000000 address
                <field Type="RW" name="PMP6CFG" offset="48" width="8">0</field>
                <field Type="RW" name="PMP7CFG" offset="56" width="8">0</field>
             </register>
-            <register address="0x000003A1" description="PMP  configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG1">
+            <register address="0x000003A2" description="PMP  configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG2">
                <field Type="RW" name="PMP8CFG" offset="0" width="8">0</field>
                <field Type="RW" name="PMP9CFG" offset="8" width="8">0</field>
                <field Type="RW" name="PMP10CFG" offset="16" width="8">0</field>
@@ -230,7 +230,7 @@ When the register bit is '0' the peripheral is mapped into the 0x2000000 address
                <field Type="RW" name="PMP6CFG" offset="48" width="8">0</field>
                <field Type="RW" name="PMP7CFG" offset="56" width="8">0</field>
             </register>
-            <register address="0x000003A1" description="PMP  configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG1">
+            <register address="0x000003A2" description="PMP  configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG2">
                <field Type="RW" name="PMP8CFG" offset="0" width="8">0</field>
                <field Type="RW" name="PMP9CFG" offset="8" width="8">0</field>
                <field Type="RW" name="PMP10CFG" offset="16" width="8">0</field>
@@ -302,7 +302,7 @@ When the register bit is '0' the peripheral is mapped into the 0x2000000 address
                <field Type="RW" name="PMP6CFG" offset="48" width="8">0</field>
                <field Type="RW" name="PMP7CFG" offset="56" width="8">0</field>
             </register>
-            <register address="0x000003A1" description="PMP  configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG1">
+            <register address="0x000003A2" description="PMP  configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG2">
                <field Type="RW" name="PMP8CFG" offset="0" width="8">0</field>
                <field Type="RW" name="PMP9CFG" offset="8" width="8">0</field>
                <field Type="RW" name="PMP10CFG" offset="16" width="8">0</field>
@@ -374,7 +374,7 @@ When the register bit is '0' the peripheral is mapped into the 0x2000000 address
                <field Type="RW" name="PMP6CFG" offset="48" width="8">0</field>
                <field Type="RW" name="PMP7CFG" offset="56" width="8">0</field>
             </register>
-            <register address="0x000003A1" description="PMP configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG1">
+            <register address="0x000003A2" description="PMP configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG2">
                <field Type="RW" name="PMP8CFG" offset="0" width="8">0</field>
                <field Type="RW" name="PMP9CFG" offset="8" width="8">0</field>
                <field Type="RW" name="PMP10CFG" offset="16" width="8">0</field>
@@ -446,7 +446,7 @@ When the register bit is '0' the peripheral is mapped into the 0x2000000 address
                <field Type="RW" name="PMP6CFG" offset="48" width="8">0</field>
                <field Type="RW" name="PMP7CFG" offset="56" width="8">0</field>
             </register>
-            <register address="0x000003A1" description="PMP configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG1">
+            <register address="0x000003A2" description="PMP configuration for 8 address regions, bit 0 read, bit 1 write, bit 2 execute, bit 7 disable, bits 3,4 address format  (0x18 =&gt; NAPOT) " name="CSR_PMPCFG2">
                <field Type="RW" name="PMP8CFG" offset="0" width="8">0</field>
                <field Type="RW" name="PMP9CFG" offset="8" width="8">0</field>
                <field Type="RW" name="PMP10CFG" offset="16" width="8">0</field>
