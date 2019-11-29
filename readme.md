@@ -1,7 +1,7 @@
-# PolarFire SoC Bare Metal Software Configuration Generator
-Ths is a utility to generate embedded software header files from information supplied
-by Libero from the Libero design. Libero supplies the information in the form 
-of an xml file.
+# PolarFire SoC Configuration Generator
+Ths is a utility to generate embedded software header files from information 
+supplied by Libero from the Libero design. Libero supplies the information in 
+the form of an xml file.
 
 # Table of contents
 1. [ Content ](#content)
@@ -11,44 +11,47 @@ of an xml file.
 
 
 ## 1. Content <a name="content"></a>
-PolarFire SoC Bare Metal Software Configuration Generator content
+The table below decribes the content of the PolarFire SoC Configuration Generator 
+directory
 
 | File                                          | Description       |       
 | :-------------------------------------------- |:------------------| 
 | readme.md                                     | This file.        |
-| mpfs_configuration_generator.py           | Python script. Takes .xml as arument, produces output for embedded software.|   
+| mpfs_configuration_generator.py               | Python script. Takes .xml as arument, produces output for embedded software.|   
 | gen_hw_headers.bat                            | Batch script for use on windows command line. Edit with the xml file you wish to use.|    
 | gen_hw_headers_lin.sh                         | Bash script for use in Linux terminal. Edit with the xml file you wish to use.|    
-| ref_xml/pf_soc_hw_description_reference.xml   | Example Libero .xml file. |    
+| ref_xml/mpfs_hw_description_reference.xml     | Example Libero .xml file. |    
 
+##
 ~~~
-   +---------+      +-----------+
-   | root    +----->| ref_xml   +-->pf_soc_hw_description_reference.xml
-   +---------+  |   +-----------+
-                | +-----------------------------------------------+
-                | | +-----------+         Output                  |
-                +-|>| hardware  +-->Created header files          |
-                | | +-----------+                                 |
-                | +-----------------------------------------------+
-                |
-           readme.md
-           mpfs_configuration_generator.py
-           gen_hw_headers_lin.sh
-           gen_hw_headers.bat
+   +---------+
+   | root    +-+-->readme.md
+   +---------+ +-->mpfs_configuration_generator.py
+               +-->gen_hw_headers_lin.sh
+               +-->gen_hw_headers.bat
+               |
+               |       +-----------+
+               +------>| ref_xml   +-->pf_soc_hw_description_reference.xml
+               |       +-----------+
+               |     +-----------------------------------------------+
+               |     | +-----------+         Output:                 |
+               +------>| hardware  +-->Created header files          |
+                     | +-----------+                                 |
+                     +-----------------------------------------------+
 ~~~
 
 ## 2. Preparation <a name="prep"></a>
-Python must be present on the computer to run the PolarFire SoC Bare Metal Software Configuration Generator.
+Python must be present on the computer to run the PolarFire SoC Configuration Generator.
 The Python script will run on Python version 2 or 3.
 There is an example script for Linux called <gen_hw_headers_lin.sh>. If using or creating your own 
 please make sure it is given permission to execute by running the following command 'chmod +x <scriptName.sh>'
 
 ## 3. Steps to generate embedded software files <a name="initial"></a>
 Please follow the recommended steps
-1. Copy the Libero generated or hand crafted xml file
-2. Delete or rename the subdirectory <hardware> as it will be overwritten
-3. Run the command <python mpfs_configuration_generator.py nameofxml.xml>
-4. The subdirectory <hardware> will be created. 
+1. Copy the Libero generated or hand crafted xml file to the ref_xml directory
+2. Delete or rename the subdirectory #hardware# as it will be overwritten
+3. Edit the gen_hw_headers.bat or gen_hw_headers_lin.sh if using linux with source xml name
+4. The subdirectory #hardware will be created containg content for embedded software. 
 
 #### Example generating from a command line in windows
 ~~~~
@@ -74,9 +77,9 @@ vagrant@ubuntu-xenial:/home/mpfs-bare-metal-sw-config-generator/lib$
 
 ## 4. Integrate <hardware> folder into Embedded Software Project <a name="Int"></a>
 
-Thsi sections describes how to integrate the <hardware> folder.
+This section describes how to integrate the #hardware folder into an embedded software project.
 
-##### Example Project directory structure, showing where hardware folder sits.
+##### Project directory structure, showing where hardware folder sits.
 ~~~
    +---------+      +-----------+                      +---------+
    | src     +----->|application|                  +-->|hardware |
@@ -105,7 +108,7 @@ Thsi sections describes how to integrate the <hardware> folder.
 
 
 Please follow the recommended steps
-1. Delete the <platform/config/hardware> folder in the Embedded Software project.
-2. Copy the generated subdirectory <hardware> into the project <platform/config/> folder
+1. Delete the #platform/config/hardware folder in the Embedded Software project.
+2. Copy the generated subdirectory <hardware> into the project #platform/config/ folder
 
 
