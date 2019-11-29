@@ -22,7 +22,7 @@ def get_script_ver():
     get_xml_ver()
     :return: script version
     '''
-    return "0.2.5"
+    return "0.2.7"
 
 #------------------------------------------------------------------------------
 # xml description version
@@ -30,11 +30,12 @@ def get_script_ver():
 #------------------------------------------------------------------------------
 def get_xml_ver():
     '''
+    version 0.2.7  Added reset vector addresses for the five harts
     This changes anytime the description changes. It is used when generating the
     reference xml script
     :return: xml version
     '''
-    return "0.2.3"
+    return "0.2.7"
 
 #------------------------------------------------------------------------------
 # xml file to parse
