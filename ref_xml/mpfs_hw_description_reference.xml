@@ -7,7 +7,7 @@
       <libero_version>10.0.0</libero_version>
       <design_name>test design</design_name>
       <mpfs_part_no>M2PFS250T_ES</mpfs_part_no>
-      <creation_date_time>2019-11-28 16:59:04</creation_date_time>
+      <creation_date_time>2019-11-29 17:01:42</creation_date_time>
       <!-- === Version info relating to Libero and xml version === -->
       <xml_format_version>0.2.7</xml_format_version>
    </design_information>
@@ -2629,7 +2629,7 @@ static power." name="MSS_SYSTEM_CLK">
             </register>
             <register address="0" description="RTC toggle Clock rate in MHz
 static power." name="MSS_RTC_TOGGLE_CLK">
-               <field Type="RW" name="MSS_RTC_TOGGLE_CLK" offset="0" width="32">100000000</field>
+               <field Type="RW" name="MSS_RTC_TOGGLE_CLK" offset="0" width="32">1000000</field>
             </register>
             <register address="0" description="AXI Clock rate in MHz
 static power." name="MSS_AXI_CLK">
