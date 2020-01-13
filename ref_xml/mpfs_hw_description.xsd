@@ -60,7 +60,7 @@
                                 <xs:element name="field" maxOccurs="unbounded" minOccurs="0">
                                   <xs:complexType>
                                     <xs:simpleContent>
-                                      <xs:extension base="xs:byte">
+                                      <xs:extension base="xs:string">
                                         <xs:attribute type="xs:string" name="Type" use="optional"/>
                                         <xs:attribute type="xs:string" name="name" use="optional"/>
                                         <xs:attribute type="xs:byte" name="offset" use="optional"/>
@@ -126,7 +126,7 @@
                                 <xs:element name="field" maxOccurs="unbounded" minOccurs="0">
                                   <xs:complexType>
                                     <xs:simpleContent>
-                                      <xs:extension base="xs:byte">
+                                      <xs:extension base="xs:string">
                                         <xs:attribute type="xs:string" name="Type" use="optional"/>
                                         <xs:attribute type="xs:string" name="name" use="optional"/>
                                         <xs:attribute type="xs:byte" name="offset" use="optional"/>
@@ -159,7 +159,7 @@
                                 <xs:element name="field" maxOccurs="unbounded" minOccurs="0">
                                   <xs:complexType>
                                     <xs:simpleContent>
-                                      <xs:extension base="xs:byte">
+                                      <xs:extension base="xs:string">
                                         <xs:attribute type="xs:string" name="Type" use="optional"/>
                                         <xs:attribute type="xs:string" name="name" use="optional"/>
                                         <xs:attribute type="xs:byte" name="offset" use="optional"/>
@@ -192,7 +192,7 @@
                                 <xs:element name="field" maxOccurs="unbounded" minOccurs="0">
                                   <xs:complexType>
                                     <xs:simpleContent>
-                                      <xs:extension base="xs:byte">
+                                      <xs:extension base="xs:string">
                                         <xs:attribute type="xs:string" name="Type" use="optional"/>
                                         <xs:attribute type="xs:string" name="name" use="optional"/>
                                         <xs:attribute type="xs:byte" name="offset" use="optional"/>
@@ -225,7 +225,7 @@
                                 <xs:element name="field" maxOccurs="unbounded" minOccurs="0">
                                   <xs:complexType>
                                     <xs:simpleContent>
-                                      <xs:extension base="xs:byte">
+                                      <xs:extension base="xs:string">
                                         <xs:attribute type="xs:string" name="Type" use="optional"/>
                                         <xs:attribute type="xs:string" name="name" use="optional"/>
                                         <xs:attribute type="xs:byte" name="offset" use="optional"/>
@@ -258,7 +258,7 @@
                                 <xs:element name="field" maxOccurs="unbounded" minOccurs="0">
                                   <xs:complexType>
                                     <xs:simpleContent>
-                                      <xs:extension base="xs:byte">
+                                      <xs:extension base="xs:string">
                                         <xs:attribute type="xs:string" name="Type" use="optional"/>
                                         <xs:attribute type="xs:string" name="name" use="optional"/>
                                         <xs:attribute type="xs:byte" name="offset" use="optional"/>
@@ -1129,6 +1129,45 @@
                 </xs:complexType>
               </xs:element>
               <xs:element name="sgmii_cfm">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="registers">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="register" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="field" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:string" name="Type" use="optional"/>
+                                        <xs:attribute type="xs:string" name="name" use="optional"/>
+                                        <xs:attribute type="xs:byte" name="offset" use="optional"/>
+                                        <xs:attribute type="xs:byte" name="width" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:string" name="address" use="optional"/>
+                              <xs:attribute type="xs:string" name="description" use="optional"/>
+                              <xs:attribute type="xs:string" name="name" use="optional"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mss_general">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="mss_peripherals">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="registers">

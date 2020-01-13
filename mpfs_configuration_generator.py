@@ -14,6 +14,7 @@ import sys
 
 #------------------------------------------------------------------------------
 # mpfs_configuration_generator.py version
+# 0.3.2 removed leading zeros from decimal values ( clock rates)
 #------------------------------------------------------------------------------
 def get_script_ver():
     '''
@@ -22,7 +23,7 @@ def get_script_ver():
     get_xml_ver()
     :return: script version
     '''
-    return "0.2.7"
+    return "0.3.2"
 
 #------------------------------------------------------------------------------
 # xml description version
@@ -30,26 +31,30 @@ def get_script_ver():
 #------------------------------------------------------------------------------
 def get_xml_ver():
     '''
+    version 0.2.9  Added regs SUBBLK_CLOCK_CR, SOFT_RESET_CR, GPIO_CR, USB_CR,
+                   MESH_SEED_CR
     version 0.2.7  Added reset vector addresses for the five harts
     This changes anytime the description changes. It is used when generating the
     reference xml script
     :return: xml version
     '''
-    return "0.2.7"
+    return "0.3.1"
 
 #------------------------------------------------------------------------------
 # xml file to parse
 # Also an xml files listing tags used for reference
 #------------------------------------------------------------------------------
 reference_xml_file = \
-    'hardware_des_xml,src_example,mpfs_hw_description_reference.xml'
+    ('hardware_des_xml,src_example,mpfs_hw_ref_defaults.xml,default',
+     'hardware_des_xml,src_example,mpfs_hw_ref_ddr3_100Mhz_ext_clk.xml,ddr3_100Mhz_ref')
+
 xml_tag_file = 'hardware_des_xml,src_example,mpfs_hw_tag_reference.xml'
 
 #------------------------------------------------------------------------------
 # xml tags, the structure here should follow the readme.md description
 # contained in the root folder for tags
 # Please note: The tag in the first column ( mss_xxx) is the same as the
-# directory name (/harware/mss_xxx)
+# directory name (/hardware/mss_xxx)
 # the fourth item lets program know how to format info in header file
 # the six item lets program know how to format value, decimal or hex
 #------------------------------------------------------------------------------
@@ -86,7 +91,8 @@ xml_tags = ('mss_memory_map,map,mem_elements,fm_define,none,hex',
             'mss_clocks,sgmii_pll,registers,fm_reg,SGMII_,hex',
             'mss_clocks,ddr_pll,registers,fm_reg,DDR_,hex',
             'mss_clocks,mss_cfm,registers,fm_reg,MSS_,hex',
-            'mss_clocks,sgmii_cfm,registers,fm_reg,SGMII_,hex',)
+            'mss_clocks,sgmii_cfm,registers,fm_reg,SGMII_,hex',
+            'mss_general,mss_peripherals,registers,fm_reg,none,hex',)
 
 #------------------------------------------------------------------------------
 #  Header files to generate
@@ -124,8 +130,8 @@ header_files = ('hardware,memory_map,hw_memory.h',
                 'hardware,clocks,hw_clk_sgmii_pll.h',
                 'hardware,clocks,hw_clk_ddr_pll.h',
                 'hardware,clocks,hw_clk_mss_cfm.h',
-                'hardware,clocks,hw_clk_sgmii_cfm.h')
-
+                'hardware,clocks,hw_clk_sgmii_cfm.h',
+                'hardware,general,hw_gen_peripherals.h')
 
 MAX_LINE_WIDTH = 80
 
@@ -310,7 +316,7 @@ def generate_register(headerFile, registers, tags):
                 # add the field to list of fields
                 field_list.extend([sfield])
         if tags[5] == 'decimal':
-            value = format(reg_value, '08X')
+            value = format(reg_value, '01X')
             default_value = format(reg_value_default, '08X')
         elif tags[5] == 'hex64':
             value = '0x' + format(reg_value, '016X')  + 'ULL'
@@ -526,12 +532,12 @@ def main():
         if gen_xml == True:
             import generate_xml_from_csv
             generate_xml_from_csv.generate_full_xml_file(reference_xml_file, xml_tags , get_xml_ver())
-            print('xml file created: ' + reference_xml_file.split(',')[-1])
+            #print('xml file created: ' + reference_xml_file.split(',')[-1])
     #
     # Create directory structure for the header files
     #
     root_folder = 'hardware'
-    TOP = ['clocks', 'ddr', 'io', 'memory_map', 'sgmii']
+    TOP = ['clocks', 'ddr', 'io', 'memory_map', 'sgmii', 'general']
     create_hw_dir_struct(root_folder, TOP)
     #
     # Next, read in XML content and create header files
