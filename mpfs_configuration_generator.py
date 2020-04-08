@@ -19,11 +19,11 @@ import sys
 def get_script_ver():
     '''
     This changes anytime anytime the mpfs_configuration_generator.py script
-    changes. This does not nessesary mean the xml format has been updated in
+    changes. This does not necessarily mean the xml format has been updated in
     get_xml_ver()
     :return: script version
     '''
-    return "0.3.2"
+    return "0.3.4"
 
 #------------------------------------------------------------------------------
 # xml description version
@@ -169,7 +169,7 @@ def WriteCopyright(root, theFile, filename, creator):
     '''
     generate copyright notice based on the following:
     #/*******************************************************************************
-    # * Copyright 2019 Microchip Corporation.
+    # * Copyright 2019-2020 Microchip FPGA Embedded Systems Solutions.
     # *
     # * SPDX-License-Identifier: MIT
     # *
@@ -184,7 +184,7 @@ def WriteCopyright(root, theFile, filename, creator):
     '''
     theFile.write('/**********************************************************'
                   '*********************\n')
-    theFile.write(" * Copyright " + str(datetime.datetime.now().year) + " Microchip Corporation.\n")
+    theFile.write(" * Copyright 2019-" + str(datetime.datetime.now().year) + " Microchip FPGA Embedded Systems Solutions.\n")
     theFile.write(' * \n')
     theFile.write(' * SPDX-License-Identifier: MIT\n')
     theFile.write(' * \n')
