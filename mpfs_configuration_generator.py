@@ -370,7 +370,7 @@ def generate_mem_elements(headerFile, mem_elements, tags):
         if len(s1) >= name_size_gap:
             name_size_gap = len(s1) + 4
         # create the strings for writing
-        s = s.ljust(name_gap, ' ') + mem_value +  ' */ \n'
+        s = s.ljust(name_gap, ' ') + mem_value +  '\n'
         reg_description = '/*' + description + ' */ \n'
         s1 = s1.ljust(name_size_gap, ' ') + mem_size \
              + '    /* Length of memory block*/ \n'
