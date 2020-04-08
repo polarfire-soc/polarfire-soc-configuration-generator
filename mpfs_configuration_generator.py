@@ -14,6 +14,8 @@ import sys
 
 #------------------------------------------------------------------------------
 # mpfs_configuration_generator.py version
+# 0.3.4 fixed comment formatting bug in hw_memory.h generation
+# 0.3.3 updated copyright format
 # 0.3.2 removed leading zeros from decimal values ( clock rates)
 #------------------------------------------------------------------------------
 def get_script_ver():
