@@ -8,7 +8,7 @@ e.g: /component/work/PFSOC_MSS_C0/PFSOC_MSS_C0_0
 1. [ Content ](#content)
 2. [ Preparation ](#prep)
 3. [ Steps to generate embedded software files ](#initial)
-4. [ Integrate <soc_config> into Embedded Software Project ](#Int)
+4. [ Integrate *soc_config* into Embedded Software Project ](#Int)
 
 
 ## 1. Content <a name="content"></a>
@@ -50,9 +50,9 @@ please make sure it is given permission to execute by running the following comm
 ## 3. Steps to generate embedded software files <a name="initial"></a>
 Please follow the recommended steps
 1. Copy the Libero generated or hand crafted xml file to the ref_xml directory
-2. Delete or rename the subdirectory #soc_config# as it will be overwritten
+2. Delete or rename the subdirectory *soc_config* as it will be overwritten
 3. Edit the gen_hw_headers.bat or gen_hw_headers_lin.sh if using linux with source xml name
-4. The subdirectory #soc_config will be created containing content for embedded software. 
+4. The subdirectory *soc_config* will be created containing content for embedded software. 
 
 #### Example generating from a command line in windows
 ~~~~
@@ -76,9 +76,9 @@ output header files created in soc_config/ directory
 vagrant@ubuntu-xenial:/home/mpfs-bare-metal-sw-config-generator/lib$ 
 ~~~~
 
-## 4. Integrate <soc_config> folder into Embedded Software Project <a name="Int"></a>
+## 4. Integrate *soc_config* folder into Embedded Software Project <a name="Int"></a>
 
-This section describes how to integrate the #soc_config folder into an embedded software project.
+This section describes how to integrate the *soc_config* folder into an embedded software project.
 
 ##### Project directory structure, showing where soc_config folder sits.
 ~~~
@@ -110,6 +110,6 @@ This section describes how to integrate the #soc_config folder into an embedded 
 
 Please follow the recommended steps
 1. Delete the #platform/config/soc_config folder in the Embedded Software project.
-2. Copy the generated subdirectory <soc_config> into the project #platform/config/ folder
+2. Copy the generated subdirectory *soc_config* into the project #platform/config/ folder
 
 
