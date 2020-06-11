@@ -1,7 +1,5 @@
 # PolarFire SoC Configuration Generator
-This is a utility to generate embedded software header files from information 
-supplied by Libero from the Libero design. Libero supplies the information in 
-the form of an xml file. This can be found in the Libero component subdirectory
+This is a utility to generate embedded software header files from information supplied by Libero from the Libero design. Libero supplies the information in the form of an xml file. This can be found in the Libero component subdirectory.
 e.g: /component/work/PFSOC_MSS_C0/PFSOC_MSS_C0_0
 
 # Table of contents
@@ -44,8 +42,10 @@ directory
 ## 2. Preparation <a name="prep"></a>
 Python must be present on the computer to run the PolarFire SoC Configuration Generator.
 The Python script will run on Python version 2 or 3.
-There is an example script for Linux called <gen_hw_headers_lin.sh>. If using or creating your own 
-please make sure it is given permission to execute by running the following command 'chmod +x <scriptName.sh>'
+There is an example script for Linux called <gen_hw_headers_lin.sh>. If using or creating your own please make sure it is given permission to execute by running the following command:
+~~~~
+chmod +x <scriptName.sh>
+~~~~
 
 ## 3. Steps to generate embedded software files <a name="initial"></a>
 Please follow the recommended steps
@@ -109,7 +109,7 @@ This section describes how to integrate the *soc_config* folder into an embedded
 
 
 Please follow the recommended steps
-1. Delete the #platform/config/soc_config folder in the Embedded Software project.
-2. Copy the generated subdirectory *soc_config* into the project #platform/config/ folder
+1. Delete the *platform/config/soc_config* folder in the Embedded Software project.
+2. Copy the generated subdirectory *soc_config* into the project *platform/config/* folder
 
 
