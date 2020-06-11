@@ -475,12 +475,12 @@ def generate_header_files(output_header_files, input_xml_file, input_xml_tags):
 # helper for showing help information
 #------------------------------------------------------------------------------
 def show_help():
-    print ('no of args you entered = ' + str(len(sys.argv)))
-    print ('pfsoc-baremetal-software-cfg-gen.py :')
+    print ('no of args you entered = ' + str(len(sys.argv) - 1))
+    print ('mpfs_configuration_generator.py :')
     print (' This program reads xml hardware definition, outputs: header files')
     print \
-        ('Usage: py -3 pfsoc-baremetal-software-cfg-gen.py [xml file name] ')
-    input('Please run again with correct argments')
+        (' Usage: python3 mpfs_configuration_generator.py [xml file name] [output folder location] ')
+    input(' Please run again with correct arguments')
 
 
 #------------------------------------------------------------------------------
@@ -489,34 +489,37 @@ def show_help():
 #------------------------------------------------------------------------------
 def main():
     '''
-    Currently three command line arguments
+    Currently four command line arguments
     arg0: required- the xml file to be parsed. Only one used in normal flow.
     arg1: name of the folder where the soc_config will be generated. THis is optional unless arg2 and arg3 are required.
-    arg2: Command parsed, if prent and equals 'generate_refernce_xml' creates
-        xml example file, If so, an eample xml is generated from .csv
+    arg2: Command parsed, if prent and equals 'generate_reference_xml' creates
+        xml example file, If so, an example xml is generated from .csv
         definitions located in the reg_descriptions directory
-    arg3: Cmmand parsed, if present and equals 'debug_regs' outputs .csv with
+    arg3: Command parsed, if present and equals 'debug_regs' outputs .csv with
         all reg names.
     '''
+
     #
     #  check/parse  arguments
     #
-    if(len(sys.argv) < 2):
+    nb_arguments = len(sys.argv) - 1
+    if nb_arguments < 2:
         show_help()
+        sys.exit()
     fullCmdArguments = sys.argv
     # - further arguments
     argumentList = fullCmdArguments[1:]
     input_xml_file = argumentList[0]
 
-    if (len(sys.argv) >= 2):
+    if nb_arguments >= 2:
         output_folder_name = argumentList[1]
         os.chdir(output_folder_name)
 
     debug_reg_csv = False
-    if (len(sys.argv) >= 5):
+    if nb_arguments >= 4:
         if (argumentList[3] == 'debug_regs'):
             debug_reg_csv = True
-    if (len(sys.argv) >= 4):
+    if nb_arguments >= 3:
         if (argumentList[2] == 'generate_refernce_xml'):
             gen_xml = True
         else:
