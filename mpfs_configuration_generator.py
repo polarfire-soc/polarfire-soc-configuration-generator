@@ -56,7 +56,7 @@ xml_tag_file = 'hardware_des_xml,src_example,mpfs_hw_tag_reference.xml'
 # xml tags, the structure here should follow the readme.md description
 # contained in the root folder for tags
 # Please note: The tag in the first column ( mss_xxx) is the same as the
-# directory name (/hardware/mss_xxx)
+# directory name (/soc_config/mss_xxx)
 # the fourth item lets program know how to format info in header file
 # the six item lets program know how to format value, decimal or hex
 #------------------------------------------------------------------------------
@@ -99,41 +99,41 @@ xml_tags = ('mss_memory_map,map,mem_elements,fm_define,none,hex',
 #------------------------------------------------------------------------------
 #  Header files to generate
 #------------------------------------------------------------------------------
-header_files = ('hardware,memory_map,hw_memory.h',
-                'hardware,memory_map,hw_apb_split.h',
-                'hardware,memory_map,hw_cache.h',
-                'hardware,memory_map,hw_pmp_hart0.h',
-                'hardware,memory_map,hw_pmp_hart1.h',
-                'hardware,memory_map,hw_pmp_hart2.h',
-                'hardware,memory_map,hw_pmp_hart3.h',
-                'hardware,memory_map,hw_pmp_hart4.h',
-                'hardware,memory_map,hw_mpu_fic0.h',
-                'hardware,memory_map,hw_mpu_fic1.h',
-                'hardware,memory_map,hw_mpu_fic2.h',
-                'hardware,memory_map,hw_mpu_crypto.h',
-                'hardware,memory_map,hw_mpu_gem0.h',
-                'hardware,memory_map,hw_mpu_gem1.h',
-                'hardware,memory_map,hw_mpu_usb.h',
-                'hardware,memory_map,hw_mpu_mmc.h',
-                'hardware,memory_map,hw_mpu_scb.h',
-                'hardware,memory_map,hw_mpu_trace.h',
-                'hardware,io,hw_mssio_mux.h',
-                'hardware,io,hw_hsio_mux.h',
-                'hardware,sgmii,hw_sgmii_tip.h',
-                'hardware,ddr,hw_ddr_options.h',
-                'hardware,ddr,hw_ddr_io_bank.h',
-                'hardware,ddr,hw_ddr_mode.h',
-                'hardware,ddr,hw_ddr_off_mode.h',
-                'hardware,ddr,hw_ddr_segs.h',
-                'hardware,ddr,hw_ddrc.h',
-                'hardware,clocks,hw_mss_clks.h',
-                'hardware,clocks,hw_clk_sysreg.h',
-                'hardware,clocks,hw_clk_mss_pll.h',
-                'hardware,clocks,hw_clk_sgmii_pll.h',
-                'hardware,clocks,hw_clk_ddr_pll.h',
-                'hardware,clocks,hw_clk_mss_cfm.h',
-                'hardware,clocks,hw_clk_sgmii_cfm.h',
-                'hardware,general,hw_gen_peripherals.h')
+header_files = ('soc_config,memory_map,hw_memory.h',
+                'soc_config,memory_map,hw_apb_split.h',
+                'soc_config,memory_map,hw_cache.h',
+                'soc_config,memory_map,hw_pmp_hart0.h',
+                'soc_config,memory_map,hw_pmp_hart1.h',
+                'soc_config,memory_map,hw_pmp_hart2.h',
+                'soc_config,memory_map,hw_pmp_hart3.h',
+                'soc_config,memory_map,hw_pmp_hart4.h',
+                'soc_config,memory_map,hw_mpu_fic0.h',
+                'soc_config,memory_map,hw_mpu_fic1.h',
+                'soc_config,memory_map,hw_mpu_fic2.h',
+                'soc_config,memory_map,hw_mpu_crypto.h',
+                'soc_config,memory_map,hw_mpu_gem0.h',
+                'soc_config,memory_map,hw_mpu_gem1.h',
+                'soc_config,memory_map,hw_mpu_usb.h',
+                'soc_config,memory_map,hw_mpu_mmc.h',
+                'soc_config,memory_map,hw_mpu_scb.h',
+                'soc_config,memory_map,hw_mpu_trace.h',
+                'soc_config,io,hw_mssio_mux.h',
+                'soc_config,io,hw_hsio_mux.h',
+                'soc_config,sgmii,hw_sgmii_tip.h',
+                'soc_config,ddr,hw_ddr_options.h',
+                'soc_config,ddr,hw_ddr_io_bank.h',
+                'soc_config,ddr,hw_ddr_mode.h',
+                'soc_config,ddr,hw_ddr_off_mode.h',
+                'soc_config,ddr,hw_ddr_segs.h',
+                'soc_config,ddr,hw_ddrc.h',
+                'soc_config,clocks,hw_mss_clks.h',
+                'soc_config,clocks,hw_clk_sysreg.h',
+                'soc_config,clocks,hw_clk_mss_pll.h',
+                'soc_config,clocks,hw_clk_sgmii_pll.h',
+                'soc_config,clocks,hw_clk_ddr_pll.h',
+                'soc_config,clocks,hw_clk_mss_cfm.h',
+                'soc_config,clocks,hw_clk_sgmii_cfm.h',
+                'soc_config,general,hw_gen_peripherals.h')
 
 MAX_LINE_WIDTH = 80
 
@@ -420,7 +420,7 @@ def generate_reference_header_file(ref_header_file, root, header_files):
         index = 0
         for child in header_files:
             c = header_files[index].split(',')
-            c.remove('hardware')
+            c.remove('soc_config')
             # include_file = os.path.join(*c)
             # as we need formatting correct for linux and windows
             include_file = c[0] + '/' + c[1]
@@ -466,7 +466,7 @@ def generate_header_files(output_header_files, input_xml_file, input_xml_tags):
     '''
     generate a header which references all the generated headers
     '''
-    file_name = 'hardware,hw_platform.h'
+    file_name = 'soc_config,hw_platform.h'
     generate_reference_header_file(file_name, root, output_header_files)
 
 
@@ -538,14 +538,14 @@ def main():
     #
     # Create directory structure for the header files
     #
-    root_folder = 'hardware'
+    root_folder = 'soc_config'
     TOP = ['clocks', 'ddr', 'io', 'memory_map', 'sgmii', 'general']
     create_hw_dir_struct(root_folder, TOP)
     #
     # Next, read in XML content and create header files
     #
     generate_header_files(header_files, input_xml_file, xml_tags)
-    print('output header files created in hardware/ directory')
+    print('output header files created in soc_config/ directory')
     #
     #  generate an xml example with tags - only for reference
     #
