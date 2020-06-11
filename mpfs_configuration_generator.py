@@ -491,10 +491,11 @@ def main():
     '''
     Currently three command line arguments
     arg0: required- the xml file to be parsed. Only one used in normal flow.
-    arg1: Command parsed, if prent and equals 'generate_refernce_xml' creates
+    arg1: name of the folder where the soc_config will be generated. THis is optional unless arg2 and arg3 are required.
+    arg2: Command parsed, if prent and equals 'generate_refernce_xml' creates
         xml example file, If so, an eample xml is generated from .csv
         definitions located in the reg_descriptions directory
-    arg2: Cmmand parsed, if present and equals 'debug_regs' outputs .csv with
+    arg3: Cmmand parsed, if present and equals 'debug_regs' outputs .csv with
         all reg names.
     '''
     #
@@ -506,12 +507,17 @@ def main():
     # - further arguments
     argumentList = fullCmdArguments[1:]
     input_xml_file = argumentList[0]
+
+    if (len(sys.argv) >= 2):
+        output_folder_name = argumentList[1]
+        os.chdir(output_folder_name)
+
     debug_reg_csv = False
-    if (len(sys.argv) >= 4):
-        if (argumentList[2] == 'debug_regs'):
+    if (len(sys.argv) >= 5):
+        if (argumentList[3] == 'debug_regs'):
             debug_reg_csv = True
-    if (len(sys.argv) >= 3):
-        if (argumentList[1] == 'generate_refernce_xml'):
+    if (len(sys.argv) >= 4):
+        if (argumentList[2] == 'generate_refernce_xml'):
             gen_xml = True
         else:
             gen_xml = False
@@ -530,7 +536,7 @@ def main():
     #  Create one xml file containing all xml information from .csv defines
     #  This is only used for internal testing. Not available for external use.
     #
-    if (len(sys.argv) >= 3):
+    if (len(sys.argv) >= 4):
         if gen_xml == True:
             import generate_xml_from_csv
             generate_xml_from_csv.generate_full_xml_file(reference_xml_file, xml_tags , get_xml_ver())
