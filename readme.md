@@ -98,10 +98,6 @@ This section describes how to integrate the *soc_config* folder into an embedded
                 +-->|platform   +---->|hal      |
                     +-----------+  |  +---------+ 
                                    |
-                                   |  +---------+
-                                   +->|drivers  |
-                                   |  +---------+
-                                   |
                                    |  +---------+      +----------+
                                    +->|drivers  +----->|mss_uart  |
                                    |  +---------+      +----------+              
