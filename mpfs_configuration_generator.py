@@ -513,7 +513,7 @@ def main():
     '''
     Currently four command line arguments
     arg0: required- the xml file to be parsed. Only one used in normal flow.
-    arg1: name of the folder where the soc_config will be generated. THis is optional unless arg2 and arg3 are required.
+    arg1: name of the folder where the soc_config will be generated. This is optional unless arg2 and arg3 are required.
     arg2: Command parsed, if prent and equals 'generate_reference_xml' creates
         xml example file, If so, an example xml is generated from .csv
         definitions located in the reg_descriptions directory
