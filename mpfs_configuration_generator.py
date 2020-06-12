@@ -12,12 +12,13 @@ import os.path
 import xml.etree.ElementTree as ET
 import sys
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # mpfs_configuration_generator.py version
 # 0.3.4 fixed comment formatting bug in hw_memory.h generation
 # 0.3.3 updated copyright format
 # 0.3.2 removed leading zeros from decimal values ( clock rates)
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def get_script_ver():
     '''
     This changes anytime anytime the mpfs_configuration_generator.py script
@@ -27,10 +28,11 @@ def get_script_ver():
     '''
     return "0.4.1"
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # xml description version
 #
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def get_xml_ver():
     '''
     version 0.2.9  Added regs SUBBLK_CLOCK_CR, SOFT_RESET_CR, GPIO_CR, USB_CR,
@@ -42,24 +44,26 @@ def get_xml_ver():
     '''
     return "0.3.1"
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # xml file to parse
 # Also an xml files listing tags used for reference
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 reference_xml_file = \
     ('hardware_des_xml,src_example,mpfs_hw_ref_defaults.xml,default',
      'hardware_des_xml,src_example,mpfs_hw_ref_ddr3_100Mhz_ext_clk.xml,ddr3_100Mhz_ref')
 
 xml_tag_file = 'hardware_des_xml,src_example,mpfs_hw_tag_reference.xml'
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # xml tags, the structure here should follow the readme.md description
 # contained in the root folder for tags
 # Please note: The tag in the first column ( mss_xxx) is the same as the
 # directory name (/soc_config/mss_xxx)
 # the fourth item lets program know how to format info in header file
 # the six item lets program know how to format value, decimal or hex
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 xml_tags = ('mss_memory_map,map,mem_elements,fm_define,none,hex',
             'mss_memory_map,apb_split,registers,fm_struct,none,hex',
             'mss_memory_map,cache,registers,fm_struct,none,hex',
@@ -96,9 +100,10 @@ xml_tags = ('mss_memory_map,map,mem_elements,fm_define,none,hex',
             'mss_clocks,sgmii_cfm,registers,fm_reg,SGMII_,hex',
             'mss_general,mss_peripherals,registers,fm_reg,none,hex',)
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  Header files to generate
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 header_files = ('soc_config,memory_map,hw_memory.h',
                 'soc_config,memory_map,hw_apb_split.h',
                 'soc_config,memory_map,hw_cache.h',
@@ -137,18 +142,20 @@ header_files = ('soc_config,memory_map,hw_memory.h',
 
 MAX_LINE_WIDTH = 80
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Read the xml file into ET
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def read_xml_file(s):
     file_dir = os.path.join(*s)
     tree = ET.parse(file_dir.strip())
     root = tree.getroot()  # type: object
     return root
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  Routine to make a folder
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def safe_make_folder(i):
     '''Makes a folder (and its parents) if not present'''
     try:
@@ -156,17 +163,19 @@ def safe_make_folder(i):
     except:
         pass
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Create the directory structure
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def create_hw_dir_struct(root_folder, TOP):
     '''Creates directory structure off root, subdirectories passed in a tupple'''
     for folder in TOP:
         safe_make_folder(root_folder + '/' + folder)
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  Generate the copyright notice at the top of the header file
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def WriteCopyright(root, theFile, filename, creator):
     '''
     generate copyright notice based on the following:
@@ -222,38 +231,43 @@ def WriteCopyright(root, theFile, filename, creator):
         theFile.write(' * ' + string + "\n")
     theFile.write(' *\n */ \n')
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  the header start define
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def start_define(theFile, filename):
     filename = filename[:-2]  # remove .h from file name
     theFile.write('\n#ifndef ' + filename.upper() + '_H_')
     theFile.write('\n#define ' + filename.upper() + '_H_\n\n')
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  start c plus define
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def start_cplus(theFile, filename):
     theFile.write('\n#ifdef __cplusplus\n')
     theFile.write('extern ' + ' \"C\"' + ' {\n')
     theFile.write('#endif\n\n')
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  end define associated with header start define
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def end_define(theFile, filename):
     filename = filename[:-2]  # remove .h from file name
     theFile.write('\n#endif /*' + ' #ifdef ' + filename.upper() + '_H_ */\n\n')
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  end c++ define
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def end_cplus(theFile, filename):
     theFile.write('\n#ifdef __cplusplus\n}\n#endif\n\n')
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  write line, break into chunks
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def write_line(headerFile , reg_description):
     ''' write line, break into chunks '''
     word_list = reg_description.split()  # list of words
@@ -268,9 +282,10 @@ def write_line(headerFile , reg_description):
     if len(sentence) > 0:
         headerFile.write(sentence + '\n')
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Iterate through registers and produce header file output
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def generate_register(headerFile, registers, tags):
     '''
     Parse registers tag for register tags and print to header file
@@ -339,10 +354,11 @@ def generate_register(headerFile, registers, tags):
             headerFile.write(field_list[x])
         headerFile.write('#endif\n')
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Iterate through tag mem_elements looking for mem elements produce header file
 # output
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def generate_mem_elements(headerFile, mem_elements, tags):
     '''
     Parse registers tag for mem tags and print to header file
@@ -381,9 +397,11 @@ def generate_mem_elements(headerFile, mem_elements, tags):
         headerFile.write(s)
         headerFile.write(s1)
         headerFile.write('#endif\n')
-#------------------------------------------------------------------------------
+
+
+# -----------------------------------------------------------------------------
 # generate a header file
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def generate_header( file, real_root, root, file_name, tags):
     creator = "Microchip-FPGA Embedded Systems Solutions"
     with open(file, 'w+') as headerFile:
@@ -402,9 +420,10 @@ def generate_header( file, real_root, root, file_name, tags):
         end_cplus(headerFile, file_name)
         end_define(headerFile, file_name)
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def generate_reference_header_file(ref_header_file, root, header_files):
     creator = "Embedded Software"
     # itemName ="io_mux configuration"
@@ -435,9 +454,10 @@ def generate_reference_header_file(ref_header_file, root, header_files):
         end_cplus(headerFile, file_name)
         end_define(headerFile, file_name)
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 #  Generate all the header files, passed in output_header_files
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def generate_header_files(output_header_files, input_xml_file, input_xml_tags):
     # read in an xml file
     s = input_xml_file.split(',')
@@ -493,9 +513,10 @@ def get_full_path(in_path):
     full_path = full_path + '/' + filename
     return full_path
 
-#------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # helper for showing help information
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def show_help():
     print ('no of args you entered = ' + str(len(sys.argv) - 1))
     print ('mpfs_configuration_generator.py :')
@@ -505,10 +526,10 @@ def show_help():
     input(' Please run again with correct arguments')
 
 
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 #    main function
 #    todo: add options from the command line
-#------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def main():
     '''
     Currently four command line arguments
@@ -567,7 +588,7 @@ def main():
         if gen_xml == True:
             import generate_xml_from_csv
             generate_xml_from_csv.generate_full_xml_file(reference_xml_file, xml_tags , get_xml_ver())
-            #print('xml file created: ' + reference_xml_file.split(',')[-1])
+            # print('xml file created: ' + reference_xml_file.split(',')[-1])
     #
     # Create directory structure for the header files
     #
@@ -584,6 +605,7 @@ def main():
     #
 #    generate_xml_from_csv.generate_xml_description_for_reference\
 #        (xml_tag_file, xml_tags)
+
 
 if __name__ == "__main__":
     main()
