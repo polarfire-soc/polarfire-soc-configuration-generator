@@ -562,10 +562,10 @@ def main():
 
     debug_reg_csv = False
     if nb_arguments >= 4:
-        if (argumentList[3] == 'debug_regs'):
+        if argumentList[3] == 'debug_regs':
             debug_reg_csv = True
     if nb_arguments >= 3:
-        if (argumentList[2] == 'generate_refernce_xml'):
+        if argumentList[2] == 'generate_refernce_xml':
             gen_xml = True
         else:
             gen_xml = False
@@ -574,7 +574,7 @@ def main():
     # Currently runs on python version 2 and 3
     #
     print ('python interpreter details:',sys.version_info)
-    if (sys.version_info > (3, 0)):
+    if sys.version_info > (3, 0):
         # Python 3 code in this block
         print ('python interpreter running is version 3')
     else:
@@ -584,7 +584,7 @@ def main():
     #  Create one xml file containing all xml information from .csv defines
     #  This is only used for internal testing. Not available for external use.
     #
-    if (len(sys.argv) >= 4):
+    if len(sys.argv) >= 4:
         if gen_xml == True:
             import generate_xml_from_csv
             generate_xml_from_csv.generate_full_xml_file(reference_xml_file, xml_tags , get_xml_ver())
