@@ -599,7 +599,7 @@ def main():
     # Next, read in XML content and create header files
     #
     generate_header_files(header_files, input_xml_file, xml_tags)
-    print('output header files created in soc_config/ directory')
+    print('Hardware configuration header files created in directory:', os.path.join(output_folder_name, 'soc_config'))
     #
     #  generate an xml example with tags - only for reference
     #
