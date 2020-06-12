@@ -470,6 +470,28 @@ def generate_header_files(output_header_files, input_xml_file, input_xml_tags):
     generate_reference_header_file(file_name, root, output_header_files)
 
 
+# -----------------------------------------------------------------------------
+# Return absolute path created from working directory location and relative
+# path passed as argument. Handles path to an XML file and path to a folder.
+# -----------------------------------------------------------------------------
+def get_full_path(in_path):
+    cwd = os.getcwd()
+    filename = ''
+    if in_path.endswith('.xml'):
+        path_comp = in_path.split('/')
+        last = len(path_comp) - 1
+        filename = path_comp[last]
+        in_path = in_path.replace(filename, '')
+
+    try:
+        os.chdir(in_path)
+        full_path = os.getcwd()
+    except IOError:
+        sys.exit()
+
+    os.chdir(cwd)
+    full_path = full_path + '/' + filename
+    return full_path
 
 #------------------------------------------------------------------------------
 # helper for showing help information
@@ -510,9 +532,11 @@ def main():
     # - further arguments
     argumentList = fullCmdArguments[1:]
     input_xml_file = argumentList[0]
+    input_xml_file = get_full_path(input_xml_file)
 
     if nb_arguments >= 2:
         output_folder_name = argumentList[1]
+        output_folder_name = get_full_path(output_folder_name)
         os.chdir(output_folder_name)
 
     debug_reg_csv = False
