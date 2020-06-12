@@ -16,7 +16,7 @@ directory
 | File                                          | Description       |       
 | :-------------------------------------------- |:------------------| 
 | readme.md                                     | This file.        |
-| mpfs_configuration_generator.py               | Python script. Takes .xml as argument, produces output for embedded software.|   
+| mpfs_configuration_generator.py               | Python script. Takes .xml and output directory as arguments. Produces output for embedded software.|   
 | gen_hw_headers.bat                            | Batch script for use on windows command line. Edit with the xml file you wish to use.|    
 | gen_hw_headers_lin.sh                         | Bash script for use in Linux terminal. Edit with the xml file you wish to use.|    
 | ref_xml/mpfs_hw_description_reference.xml     | Example Libero .xml file. |    
