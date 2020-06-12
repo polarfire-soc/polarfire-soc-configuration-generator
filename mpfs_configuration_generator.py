@@ -25,7 +25,7 @@ def get_script_ver():
     get_xml_ver()
     :return: script version
     '''
-    return "0.3.4"
+    return "0.4.1"
 
 #------------------------------------------------------------------------------
 # xml description version
