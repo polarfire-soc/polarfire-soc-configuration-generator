@@ -502,6 +502,16 @@ def get_full_path(in_path):
         last = len(path_comp) - 1
         filename = path_comp[last]
         in_path = in_path.replace(filename, '')
+    else:
+        dir_entries = os.listdir(in_path)
+        for dir_entry in dir_entries:
+            print(dir_entry)
+            if dir_entry.endswith('.xml'):
+                filename = dir_entry
+            else:
+                if dir_entry.endswith('_mss_cfg.xml'):
+                    filename = dir_entry
+                    break
 
     try:
         os.chdir(in_path)
