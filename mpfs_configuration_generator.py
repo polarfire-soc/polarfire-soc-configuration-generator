@@ -524,6 +524,27 @@ def get_full_path(in_path):
 
 
 # -----------------------------------------------------------------------------
+# Check if the source XML file is more recent than the already generated
+# SoC configuration. Used to avoid regenerating the configuration and hence
+# forcing a rebuild of software using the generated configuration files.
+# ----------------------------------------------------------------------------
+def is_xml_more_recent(xml_file_path, output_folder_name):
+    xml_timestamp = os.path.getmtime(xml_file_path)
+    regenerate = False
+    for header_file_desc in header_files:
+        hfd = header_file_desc.split(',')
+        header_path = os.path.join(output_folder_name, hfd[0], hfd[1], hfd[2])
+        try:
+            header_timestamp = os.path.getmtime(header_path)
+            if header_timestamp < xml_timestamp:
+                regenerate = True
+        except FileNotFoundError:
+            regenerate = True
+
+    return regenerate
+
+
+# -----------------------------------------------------------------------------
 # helper for showing help information
 # -----------------------------------------------------------------------------
 def show_help():
@@ -599,16 +620,22 @@ def main():
             generate_xml_from_csv.generate_full_xml_file(reference_xml_file, xml_tags , get_xml_ver())
             # print('xml file created: ' + reference_xml_file.split(',')[-1])
     #
-    # Create directory structure for the header files
+    # Check if the XML file is more recent than the already existing soc_config directory content and only generate the
+    # soc_config folder content if the XML description is more recent.
     #
     root_folder = 'soc_config'
-    TOP = ['clocks', 'ddr', 'io', 'memory_map', 'sgmii', 'general']
-    create_hw_dir_struct(root_folder, TOP)
-    #
-    # Next, read in XML content and create header files
-    #
-    generate_header_files(header_files, input_xml_file, xml_tags)
-    print('Hardware configuration header files created in directory:', os.path.join(output_folder_name, 'soc_config'))
+    if is_xml_more_recent(input_xml_file, output_folder_name):
+        #
+        # Create directory structure for the header files
+        #
+        TOP = ['clocks', 'ddr', 'io', 'memory_map', 'sgmii', 'general']
+        create_hw_dir_struct(root_folder, TOP)
+        #
+        # Next, read in XML content and create header files
+        #
+        generate_header_files(header_files, input_xml_file, xml_tags)
+        print('Hardware configuration header files created in directory:', os.path.join(output_folder_name, 'soc_config'))
+
     #
     #  generate an xml example with tags - only for reference
     #
