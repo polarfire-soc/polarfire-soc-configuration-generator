@@ -635,6 +635,9 @@ def main():
         #
         generate_header_files(header_files, input_xml_file, xml_tags)
         print('Hardware configuration header files created in directory:', os.path.join(output_folder_name, 'soc_config'))
+    else:
+        print('The input XML configuration description is older than the existing generated configuration files.')
+        print('Touch/modify the XML configuration description file if you wish to force configuration header files regeneration.')
 
     #
     #  generate an xml example with tags - only for reference
