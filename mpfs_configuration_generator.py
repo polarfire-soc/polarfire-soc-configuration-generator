@@ -505,7 +505,6 @@ def get_full_path(in_path):
     else:
         dir_entries = os.listdir(in_path)
         for dir_entry in dir_entries:
-            print(dir_entry)
             if dir_entry.endswith('.xml'):
                 filename = dir_entry
             else:
@@ -583,13 +582,13 @@ def main():
     # Check version of python interpreter, helps debugging
     # Currently runs on python version 2 and 3
     #
-    print ('python interpreter details:',sys.version_info)
-    if sys.version_info > (3, 0):
+    #print ('python interpreter details:',sys.version_info)
+    #if sys.version_info > (3, 0):
         # Python 3 code in this block
-        print ('python interpreter running is version 3')
-    else:
+    #    print ('python interpreter running is version 3')
+    #else:
         # Python 2 code in this block
-        print ('python interpreter running is version 2')
+    #    print ('python interpreter running is version 2')
     #
     #  Create one xml file containing all xml information from .csv defines
     #  This is only used for internal testing. Not available for external use.
