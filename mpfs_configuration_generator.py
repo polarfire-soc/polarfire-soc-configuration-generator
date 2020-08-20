@@ -530,18 +530,17 @@ def get_full_path(in_path):
 # ----------------------------------------------------------------------------
 def is_xml_more_recent(xml_file_path, output_folder_name):
     xml_timestamp = os.path.getmtime(xml_file_path)
-    regenerate = False
     for header_file_desc in header_files:
         hfd = header_file_desc.split(',')
-        header_path = os.path.join(output_folder_name, hfd[0], hfd[1], hfd[2])
+        header_path = os.path.join(output_folder_name, *hfd)
         try:
             header_timestamp = os.path.getmtime(header_path)
             if header_timestamp < xml_timestamp:
-                regenerate = True
+                return True
         except FileNotFoundError:
-            regenerate = True
+            return True
 
-    return regenerate
+    return False
 
 
 # -----------------------------------------------------------------------------
