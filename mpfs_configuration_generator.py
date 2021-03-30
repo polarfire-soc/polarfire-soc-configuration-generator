@@ -26,7 +26,7 @@ def get_script_ver():
     get_xml_ver()
     :return: script version
     '''
-    return "0.5.1"
+    return "0.5.2"
 
 
 # -----------------------------------------------------------------------------
@@ -196,12 +196,12 @@ def WriteCopyright(root, theFile, filename, creator):
     theFile.write('/**********************************************************'
                   '*********************\n')
     theFile.write(" * Copyright 2019-" + str(datetime.datetime.now().year) + " Microchip FPGA Embedded Systems Solutions.\n")
-    theFile.write(' * \n')
+    theFile.write(' *\n')
     theFile.write(' * SPDX-License-Identifier: MIT\n')
-    theFile.write(' * \n')
+    theFile.write(' *\n')
     theFile.write(" * @file " + filename + "\n")
     theFile.write(" * @author " + creator + "\n")
-    theFile.write(' * \n')
+    theFile.write(' *\n')
     for child in root:
         if child.tag == "design_information":
             for child1 in child:
@@ -217,19 +217,19 @@ def WriteCopyright(root, theFile, filename, creator):
                     theFile.write(' * Format version of XML description: ' + child1.text.strip() + "\n")
     theFile.write(' * PolarFire SoC Configuration Generator version: ' + get_script_ver() + "\n")
     strings = ('',
-    'Note 1: This file should not be edited. If you need to modify a parameter,',
-    'without going through the Libero flow or editing the associated xml file,',
-    'the following method is recommended:',
-    '  1. edit the file platform//config//software//mpfs_hal//mss_sw_config.h',
-    '  2. define the value you want to override there. (Note: There is a ',
-    '     commented example in mss_sw_config.h)',
-    'Note 2: The definition in mss_sw_config.h takes precedence, as ',
-    'mss_sw_config.h is included prior to the ' + filename + ' in the hal ',
-    '(see platform//mpfs_hal//mss_hal.h)',
+    ' Note 1: This file should not be edited. If you need to modify a parameter,',
+    ' without going through the Libero flow or editing the associated xml file,',
+    ' the following method is recommended:',
+    '   1. edit the file platform//config//software//mpfs_hal//mss_sw_config.h',
+    '   2. define the value you want to override there. (Note: There is a',
+    '      commented example in mss_sw_config.h)',
+    ' Note 2: The definition in mss_sw_config.h takes precedence, as',
+    ' mss_sw_config.h is included prior to the ' + filename + ' in the hal',
+    ' (see platform//mpfs_hal//mss_hal.h)',
            )
     for string in strings:
-        theFile.write(' * ' + string + "\n")
-    theFile.write(' *\n */ \n')
+        theFile.write(' *' + string + "\n")
+    theFile.write(' *\n */\n')
 
 
 # -----------------------------------------------------------------------------
@@ -275,12 +275,12 @@ def write_line(headerFile , reg_description):
     word_list.pop(0)
     for word in word_list:
         if (len(sentence + word + ' ') > MAX_LINE_WIDTH):
-            headerFile.write(sentence + '\n')
+            headerFile.write(sentence.rstrip() + '\n')
             sentence = word + ' '
         else:
             sentence = sentence + word + ' ';
     if len(sentence) > 0:
-        headerFile.write(sentence + '\n')
+        headerFile.write(sentence.rstrip() + '\n')
 
 
 # -----------------------------------------------------------------------------
@@ -329,7 +329,7 @@ def generate_register(headerFile, registers, tags):
                     sfield += ' value= ' + field.text.strip()
                     temp_val = ((int(field.text.strip(), 16)) << int(field.get('offset')))
                     reg_value += temp_val
-                sfield += ' */ \n'
+                sfield += ' */\n'
                 # add the field to list of fields
                 field_list.extend([sfield])
         if tags[5] == 'decimal':
@@ -345,7 +345,7 @@ def generate_register(headerFile, registers, tags):
         if len(s) >= name_gap:
             name_gap = len(s) + 4
         s = s.ljust(name_gap, ' ') + value + '\n'
-        reg_description = '/*' + description + ' */ \n'
+        reg_description = '/*' + description + ' */\n'
         headerFile.write('#if !defined ' + '(' + name_of_reg + ')\n')
         # Write out the register description, max chars per line 80
         write_line(headerFile , reg_description)
@@ -389,9 +389,9 @@ def generate_mem_elements(headerFile, mem_elements, tags):
             name_size_gap = len(s1) + 4
         # create the strings for writing
         s = s.ljust(name_gap, ' ') + mem_value +  '\n'
-        reg_description = '/*' + description + ' */ \n'
+        reg_description = '/*' + description + ' */\n'
         s1 = s1.ljust(name_size_gap, ' ') + mem_size \
-             + '    /* Length of memory block*/ \n'
+             + '    /* Length of memory block*/\n'
         headerFile.write('#if !defined ' + '(' + name_of_reg + ')\n')
         headerFile.write(reg_description)
         headerFile.write(s)
@@ -443,7 +443,7 @@ def generate_reference_header_file(ref_header_file, root, header_files):
             # include_file = os.path.join(*c)
             # as we need formatting correct for linux and windows
             include_file = c[0] + '/' + c[1]
-            headerFile.write('#include \"' + include_file + '\" \n')
+            headerFile.write('#include \"' + include_file + '\"\n')
             index += 1
         # add the c++ define
         start_cplus(headerFile, file_name)
@@ -604,12 +604,12 @@ def main():
     #
     #print ('python interpreter details:',sys.version_info)
     #if sys.version_info > (3, 0):
-        # Python 3 code in this block
+    #    # Python 3 code in this block
     #    print ('python interpreter running is version 3')
     #else:
-        # Python 2 code in this block
+    #    # Python 2 code in this block
     #    print ('python interpreter running is version 2')
-    #
+
     #  Create one xml file containing all xml information from .csv defines
     #  This is only used for internal testing. Not available for external use.
     #
