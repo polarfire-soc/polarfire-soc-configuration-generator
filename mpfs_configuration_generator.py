@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 #!/usr/bin/env python3
+=======
+
+
+>>>>>>> e094ddf (  Updates.)
 #==============================================================================
 # This script takes an xml file which describes hardware options and produces
 # header files in the directory hardware which are used by the embedded
@@ -15,6 +20,14 @@ import sys
 
 # -----------------------------------------------------------------------------
 # mpfs_configuration_generator.py version
+<<<<<<< HEAD
+=======
+# 0.3.6 added support for multiple xml file found in input folder
+#       /empty xml file check/ xml filename arg in current folder/
+#       if multiple files are there then the file with the latest time stamp will 
+#       be selected. 
+# 0.3.5 changed target folder name from fpga_config to fpga_config
+>>>>>>> e094ddf (  Updates.)
 # 0.3.4 fixed comment formatting bug in hw_memory.h generation
 # 0.3.3 updated copyright format
 # 0.3.2 removed leading zeros from decimal values ( clock rates)
@@ -461,6 +474,7 @@ def generate_reference_header_file(ref_header_file, root, header_files):
 def generate_header_files(output_header_files, input_xml_file, input_xml_tags):
     # read in an xml file
     s = input_xml_file.split(',')
+
     root = read_xml_file(s)
     index = 0
     while index < len(input_xml_tags):
@@ -497,20 +511,40 @@ def generate_header_files(output_header_files, input_xml_file, input_xml_tags):
 def get_full_path(in_path):
     cwd = os.getcwd()
     filename = ''
+    temp = in_path
     if in_path.endswith('.xml'):
         path_comp = in_path.split('/')
         last = len(path_comp) - 1
         filename = path_comp[last]
+        
         in_path = in_path.replace(filename, '')
+    if in_path == '':
+        filename = temp 
+        in_path = os.getcwd()
+        
     else:
+        xml_list = [] 
         dir_entries = os.listdir(in_path)
         for dir_entry in dir_entries:
+<<<<<<< HEAD
+=======
+
+            print(dir_entry)
+>>>>>>> e094ddf (  Updates.)
             if dir_entry.endswith('.xml'):
-                filename = dir_entry
+                xml_list.append(dir_entry)
             else:
                 if dir_entry.endswith('_mss_cfg.xml'):
-                    filename = dir_entry
+                    xml_list.append(dir_entry) 
                     break
+       #This section  will sort the xml file by the latest timestamp  
+        if len(xml_list) > 1:
+
+            xml_list = sort_by_timestamp(xml_list,in_path)
+            filename = xml_list[-1]
+        else:
+            if len(xml_list) != 0:
+                filename = xml_list[0] 
 
     try:
         os.chdir(in_path)
@@ -520,8 +554,40 @@ def get_full_path(in_path):
 
     os.chdir(cwd)
     full_path = full_path + '/' + filename
-    return full_path
+    if is_empty_file(full_path):
+        print("\nxml File is empty")
+        sys.exit()
+    else:
+        return full_path
 
+
+# -------------------------------------------------------
+# check is fpath is a file and empty 
+# -------------------------------------------------------
+def is_empty_file(fpath):  
+    return os.path.isfile(fpath) and os.path.getsize(fpath) == 0
+
+# -------------------------------------------------------
+# sort file names on the basis of time stamp 
+# -------------------------------------------------------
+def sort_by_timestamp(file_name,file_path):
+    cwd = os.getcwd()
+    try :
+        os.chdir(file_path)
+        path = os.getcwd()
+    except IOError : 
+        print("not a valid folder name--------------")
+        sys.exit()
+
+
+    Files = [path + '/' + file_name[i] for i in range(len(file_name))]
+    Files.sort(key=os.path.getmtime)
+    s_file_name = []
+    for i in range(len(Files)):
+        s_file_name.append(Files[i].split('/')[-1])
+    
+    print("sorted list of files\n",s_file_name)
+    return s_file_name
 
 # -----------------------------------------------------------------------------
 # Check if the source XML file is more recent than the already generated
