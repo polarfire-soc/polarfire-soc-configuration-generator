@@ -644,7 +644,7 @@ def main_config_generator():
         print ('python interpreter running is version 3')
     else:
     #    # Python 2 code in this block
-    #    print ('python interpreter running is version 2')
+        print ('python interpreter running is version 2')
     
     #  Create one xml file containing all xml information from .csv defines
     #  This is only used for internal testing. Not available for external use.
