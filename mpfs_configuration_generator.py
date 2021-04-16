@@ -32,7 +32,7 @@ def get_script_ver():
     get_xml_ver()
     :return: script version
     '''
-    return "0.5.2"
+    return "0.5.3"
 
 
 # -----------------------------------------------------------------------------
@@ -227,10 +227,10 @@ def WriteCopyright(root, theFile, filename, creator):
     ' without going through the Libero flow or editing the associated xml file,',
     ' the following method is recommended:',
     '   1. edit the file platform//config//software//mpfs_hal//mss_sw_config.h',
-    '   2. define the value you want to override there. (Note: There is a ',
+    '   2. define the value you want to override there. (Note: There is a',
     '      commented example in mss_sw_config.h)',
-    ' Note 2: The definition in mss_sw_config.h takes precedence, as ',
-    ' mss_sw_config.h is included prior to the ' + filename + ' in the hal ',
+    ' Note 2: The definition in mss_sw_config.h takes precedence, as',
+    ' mss_sw_config.h is included prior to the ' + filename + ' in the hal',
     ' (see platform//mpfs_hal//mss_hal.h)',
            )
     for string in strings:
